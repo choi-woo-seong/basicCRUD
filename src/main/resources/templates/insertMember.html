@@ -2,21 +2,32 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/check.js"></script>
     <title>Title</title>
 </head>
+<style>
+    span{
+        font-size : 10px;
+        color : red;
+    }
+</style>
 <body>
-  <form th:action="@{/member/insert}" method="post">
+  <form th:action="@{/member/insert}" th:object="${memberDto}" method="post">
     <div>
       <label for="name">이름 : </label>
-      <input type="text" name="name">
+      <input type="text" name="name" id="name" th:field="*{name}">
+        <span th:errors="*{name}"></span>
     </div>
     <div>
       <label for="age">나이 : </label>
-      <input type="text" name="age">
+      <input type="text" name="age" id="age" th:field="*{age}">
+        <span th:errors="*{age}"></span>
     </div>
     <div>
       <label for="address">주소 : </label>
-      <input type="text" name="address">
+      <input type="text" name="address" id="address" th:field="*{address}">
+        <span th:errors="*{address}"></span>
     </div>
     <input type="submit" value="등록">
   </form>

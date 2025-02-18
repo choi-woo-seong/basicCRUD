@@ -3,13 +3,12 @@ package com.my.basicCRUD.controller;
 import com.my.basicCRUD.dto.MemberDto;
 import com.my.basicCRUD.entity.Member;
 import com.my.basicCRUD.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -26,12 +25,16 @@ public class MemberController {
     }
 
     @GetMapping("insertForm")
-    public String insertFormView() {
+    public String insertFormView(Model model) {
+        model.addAttribute("memberDto", new MemberDto());
         return "insertMember";
     }
 
     @PostMapping("insert")
-    public String insert(MemberDto dto, RedirectAttributes redirectAttributes) {
+    public String insert(@Valid MemberDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            return "insertMember";
+        }
         memberService.saveMember(dto);
         redirectAttributes.addFlashAttribute("msg","신규데이터가 입력되었습니다~");
         return "redirect:/member/view";
