@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form th:action="@{/member/update}" th:object="${member}" method="post">
+    <div>
+      <label for="id">ID : </label>
+      <input type="text" th:field="*{id}" disabled>
+      <input type="hidden" th:field="*{id}" >
+    </div>
+    <div>
+      <label for="name">이름 : </label>
+      <input type="text" th:field="*{name}">
+    </div>
+    <div>
+      <label for="age">나이 : </label>
+      <input type="text" th:field="*{age}">
+    </div>
+    <div>
+      <label for="address">주소 : </label>
+      <input type="text" th:field="*{address}">
+    </div>
+    <input type="submit" value="수정">
+  </form>
+  <a th:href="@{/member/view}" align="center">회원정보화면으로 돌아가기</a>
+</body>
+</html>
